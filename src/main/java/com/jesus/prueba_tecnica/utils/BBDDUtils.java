@@ -1,12 +1,20 @@
 package com.jesus.prueba_tecnica.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Clase de utilidad para realizar el trabajo con la BBDD al inicio
+ * @author Jesus
+ */
 public class BBDDUtils {
+    private static final Logger logger = LoggerFactory.getLogger(BBDDUtils.class);
 
     /**
      * Metodo encargado de inicializar la BBDD, creando la tabla e insertando los datos del archivo csv
@@ -20,14 +28,16 @@ public class BBDDUtils {
              Scanner scanner = new Scanner(new FileReader("src/main/resources/prices.csv"));
              Statement stmt = conn.createStatement()) {
 
-            // Crear la tabla si no existe
-            stmt.execute("CREATE TABLE PRICES (" +
-                    "BrandId INT, StartDate TIMESTAMP, EndDate TIMESTAMP, " +
-                    "PriceList INT, ProductId INT, Priority INT, Price DECIMAL(10,2), " +
-                    "Currency VARCHAR(3), LastUpdate TIMESTAMP, LastUpdateBy VARCHAR(50))");
+            logger.info("Inicializando BBDD");
+            stmt.execute("CREATE TABLE IF NOT EXISTS PRICES (" +
+                        "BrandId INT, StartDate TIMESTAMP, EndDate TIMESTAMP, " +
+                        "PriceList INT, ProductId INT, Priority INT, Price DECIMAL(10,2), " +
+                        "Currency VARCHAR(3), LastUpdate TIMESTAMP, LastUpdateBy VARCHAR(50))");
 
-
-            String sql = "INSERT INTO PRICES (BrandId, StartDate, EndDate, PriceList, ProductId, Priority, Price, Currency, LastUpdate, LastUpdateBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            logger.info("Insertando datos en BBDD");
+            String sql = "INSERT INTO PRICES (BrandId, StartDate, EndDate, PriceList, ProductId, Priority, Price, Currency, LastUpdate, LastUpdateBy) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                         "ON DUPLICATE KEY UPDATE Price = VALUES(Price);";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             //El formato de fecha del csv no es el esperado por h2, se debe reconvertir
@@ -52,10 +62,10 @@ public class BBDDUtils {
                 statement.executeUpdate();
             }
 
-            System.out.println("Datos insertados correctamente.");
+            logger.info("Datos insertados correctamente.");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }

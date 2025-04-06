@@ -3,6 +3,10 @@ package com.jesus.prueba_tecnica.repository.entity;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Clase entidad de Price
+ * @author Jesus 
+ */
 public class Price {
     private int brandId;
     private int productId;

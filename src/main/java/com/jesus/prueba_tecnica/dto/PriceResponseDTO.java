@@ -3,6 +3,10 @@ package com.jesus.prueba_tecnica.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Clase de respuesta de la operacion obtener precio
+ * @author Jesus
+ */
 public class PriceResponseDTO {
     private int productId;
     private int brandId;
@@ -11,6 +15,15 @@ public class PriceResponseDTO {
     private LocalDateTime endDate;
     private double price;
 
+    /**
+     * Constructor de la clase
+     * @param productId
+     * @param brandId
+     * @param priceList
+     * @param startDate
+     * @param endDate
+     * @param price
+     */
     public PriceResponseDTO(int productId, int brandId, int priceList, LocalDateTime startDate, LocalDateTime endDate, double price) {
         this.productId = productId;
         this.brandId = brandId;
@@ -18,6 +31,12 @@ public class PriceResponseDTO {
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
+    }
+
+    /**
+     * Constructor vacio de la clase
+     */
+    public PriceResponseDTO() {
     }
 
     public int getProductId() {

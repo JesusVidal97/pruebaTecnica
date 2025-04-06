@@ -7,6 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Clase que implementa los metodos CRUD de la BBDD H2
+ * @author Jesus
+ */
 @Repository
 public class PriceRepositoryH2Impl implements PriceRepository {
     private final JdbcTemplate jdbcTemplate;
