@@ -36,8 +36,7 @@ public class BBDDUtils {
 
             logger.info("Insertando datos en BBDD");
             String sql = "INSERT INTO PRICES (BrandId, StartDate, EndDate, PriceList, ProductId, Priority, Price, Currency, LastUpdate, LastUpdateBy) " +
-                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                         "ON DUPLICATE KEY UPDATE Price = VALUES(Price);";
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             //El formato de fecha del csv no es el esperado por h2, se debe reconvertir
