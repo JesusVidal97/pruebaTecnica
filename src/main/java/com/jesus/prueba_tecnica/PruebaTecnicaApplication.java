@@ -17,7 +17,6 @@ public class PruebaTecnicaApplication extends SpringBootServletInitializer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(System.getProperty("java.class.path"));
 
 		BBDDUtils.inicializarBBDD();
 
