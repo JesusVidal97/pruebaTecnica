@@ -3,11 +3,13 @@ package com.jesus.prueba_tecnica.infrastructure.controller;
 import com.jesus.prueba_tecnica.infrastructure.dto.PriceResponseDTO;
 import com.jesus.prueba_tecnica.domain.Price;
 import com.jesus.prueba_tecnica.application.services.PriceServiceImpl;
+import com.jesus.prueba_tecnica.utils.Validator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Controlador del proyecto que contiene los endpoints.
@@ -31,11 +33,15 @@ public class PriceController {
      */
     @GetMapping("/find")
     public ResponseEntity<PriceResponseDTO> getPrice(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime applicationDate,
-            @RequestParam int productId,
-            @RequestParam int brandId) throws Exception {
+            @RequestParam(required = false) String applicationDate,
+            @RequestParam(required = false) Integer productId,
+            @RequestParam(required = false) Integer brandId) {
 
-        Price price = priceServiceImpl.getApplicablePrice(applicationDate, productId, brandId);
+        Validator.dataValidator(applicationDate, productId, brandId);
+
+        LocalDateTime localDateTime = Validator.validateDateFormat(applicationDate);
+
+        Price price = priceServiceImpl.getApplicablePrice(localDateTime, productId, brandId);
 
         PriceResponseDTO priceResponseDTO = new PriceResponseDTO(
                 price.getProductId(),

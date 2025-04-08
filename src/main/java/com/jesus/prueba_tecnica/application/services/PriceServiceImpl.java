@@ -1,5 +1,7 @@
 package com.jesus.prueba_tecnica.application.services;
 
+import com.jesus.prueba_tecnica.application.exceptions.PriceNotFoundException;
+import com.jesus.prueba_tecnica.infrastructure.exceptions.RequestParamNoValidException;
 import com.jesus.prueba_tecnica.infrastructure.repository.dao.PriceRepository;
 import com.jesus.prueba_tecnica.domain.Price;
 import org.springframework.stereotype.Service;
@@ -31,40 +33,19 @@ public class PriceServiceImpl implements PriceService {
      * @param brandId         El brandId por el que se va a filtrar
      * @return {@link Optional} que contiene el {@link Price} si se encuentra, o un Optional vacío si no hay precio aplicable.
      */
-    public Price getApplicablePrice(LocalDateTime applicationDate, int productId, int brandId) throws Exception {
-        
-        dataValidator(applicationDate, productId, brandId);
+    public Price getApplicablePrice(LocalDateTime applicationDate, int productId, int brandId) {
 
         List<Price> priceList = priceRepository.findApplicablePrice(applicationDate, productId, brandId);
 
         if (priceList == null || priceList.isEmpty()) {
-            throw new NoSuchElementException("No price found for the given parameters.");
+            throw new PriceNotFoundException("No price found for product " + productId + " and brand " + brandId);
         }
 
         // Aseguramos que el resultado esté ordenado antes de obtener el primero
         priceList.sort(Comparator.comparingInt(Price::getPriority).reversed());
 
-        return priceList.get(0); // Obtener el primer elemento garantizando que existe
+        return priceList.get(0);
     }
 
-    /**
-     * Metodo encargado de validar los datos de entrada
-     * @param applicationDate La fecha en la que se va a filtrar
-     * @param productId El id del producto por el que se va a filtrar
-     * @param brandId El brandId por el que se va a filtrar
-     */
-    private void dataValidator(LocalDateTime applicationDate, int productId, int brandId) {
 
-        if(applicationDate == null){
-            throw new IllegalArgumentException("applicationDate cannot be null");
-        }
-
-        if(productId < 0){
-            throw new IllegalArgumentException("productId cannot be negative");
-        }
-
-        if(brandId < 0){
-            throw new IllegalArgumentException("brandId cannot be negative");
-        }
-    }
 }

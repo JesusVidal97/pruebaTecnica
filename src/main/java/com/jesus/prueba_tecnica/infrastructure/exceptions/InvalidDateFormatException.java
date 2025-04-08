@@ -1,0 +1,8 @@
+package com.jesus.prueba_tecnica.infrastructure.exceptions;
+
+public class InvalidDateFormatException extends RuntimeException {
+
+    public InvalidDateFormatException(String message) {
+        super(message);
+    }
+}
