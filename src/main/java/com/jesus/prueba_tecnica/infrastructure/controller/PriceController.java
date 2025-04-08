@@ -1,7 +1,8 @@
-package com.jesus.prueba_tecnica.controller;
+package com.jesus.prueba_tecnica.infrastructure.controller;
 
-import com.jesus.prueba_tecnica.dto.PriceResponseDTO;
-import com.jesus.prueba_tecnica.services.PriceServiceImpl;
+import com.jesus.prueba_tecnica.infrastructure.dto.PriceResponseDTO;
+import com.jesus.prueba_tecnica.domain.Price;
+import com.jesus.prueba_tecnica.application.services.PriceServiceImpl;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,17 +33,19 @@ public class PriceController {
     public ResponseEntity<PriceResponseDTO> getPrice(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime applicationDate,
             @RequestParam int productId,
-            @RequestParam int brandId) {
+            @RequestParam int brandId) throws Exception {
 
-        return priceServiceImpl.getApplicablePrice(applicationDate, productId, brandId)
-                .map(price -> new PriceResponseDTO(
-                        price.getProductId(),
-                        price.getBrandId(),
-                        price.getPriceList(),
-                        price.getStartDate(),
-                        price.getEndDate(),
-                        price.getPrice()))
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Price price = priceServiceImpl.getApplicablePrice(applicationDate, productId, brandId);
+
+        PriceResponseDTO priceResponseDTO = new PriceResponseDTO(
+                price.getProductId(),
+                price.getBrandId(),
+                price.getPriceList(),
+                price.getStartDate(),
+                price.getEndDate(),
+                price.getPrice()
+        );
+
+        return ResponseEntity.ok(priceResponseDTO);
     }
 }

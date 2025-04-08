@@ -1,4 +1,4 @@
-package com.jesus.prueba_tecnica.dto;
+package com.jesus.prueba_tecnica.infrastructure.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

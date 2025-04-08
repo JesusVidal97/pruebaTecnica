@@ -1,4 +1,4 @@
-package com.jesus.prueba_tecnica.repository.entity;
+package com.jesus.prueba_tecnica.domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -13,6 +13,7 @@ public class Price {
     private int priceList;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private int priority;
     private double price;
     private String currency;
 
@@ -26,12 +27,13 @@ public class Price {
      * @param price
      * @param currency
      */
-    public Price(int brandId, int productId, int priceList, LocalDateTime startDate, LocalDateTime endDate, double price, String currency) {
+    public Price(int brandId, int productId, int priceList, LocalDateTime startDate, LocalDateTime endDate, int priority, double price, String currency) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.priority = priority;
         this.price = price;
         this.currency = currency;
     }
@@ -39,7 +41,7 @@ public class Price {
     /**
      * Constructor vacio del objeto
      */
-    public Price() {
+    public Price(int priority) {
     }
 
     public int getBrandId() {
@@ -98,16 +100,24 @@ public class Price {
         this.currency = currency;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Price price1 = (Price) o;
-        return brandId == price1.brandId && productId == price1.productId && priceList == price1.priceList && Double.compare(price, price1.price) == 0 && Objects.equals(startDate, price1.startDate) && Objects.equals(endDate, price1.endDate) && Objects.equals(currency, price1.currency);
+        return brandId == price1.brandId && productId == price1.productId && priceList == price1.priceList && priority == price1.priority && Double.compare(price, price1.price) == 0 && Objects.equals(startDate, price1.startDate) && Objects.equals(endDate, price1.endDate) && Objects.equals(currency, price1.currency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brandId, productId, priceList, startDate, endDate, price, currency);
+        return Objects.hash(brandId, productId, priceList, startDate, endDate, priority, price, currency);
     }
 
     @Override
@@ -118,6 +128,7 @@ public class Price {
                 ", priceList=" + priceList +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", priority=" + priority +
                 ", price=" + price +
                 ", currency='" + currency + '\'' +
                 '}';
