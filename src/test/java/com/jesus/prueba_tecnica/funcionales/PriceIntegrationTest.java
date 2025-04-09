@@ -1,4 +1,4 @@
-package com.jesus.prueba_tecnica.controller;
+package com.jesus.prueba_tecnica.funcionales;
 
 import com.jesus.prueba_tecnica.domain.Price;
 import com.jesus.prueba_tecnica.application.services.PriceService;
@@ -10,11 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class PriceControllerTest {
+public class PriceIntegrationTest {
 
     @Autowired
     private PriceService priceService; // Acceso real al servicio
@@ -30,7 +29,7 @@ public class PriceControllerTest {
         Price price = priceService.getApplicablePrice(applicationDate, 35455, 1);
 
         // Validar el precio esperado desde la BD
-        assertTrue(price != null);
+        assertNotNull(price);
         assertEquals(35.50, price.getPrice());
     }
 
@@ -39,7 +38,7 @@ public class PriceControllerTest {
         LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 16, 0, 0);
         Price price = priceService.getApplicablePrice(applicationDate, 35455, 1);
 
-        assertTrue(price != null);
+        assertNotNull(price);
         assertEquals(25.45, price.getPrice());
     }
 
@@ -48,7 +47,7 @@ public class PriceControllerTest {
         LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 21, 0, 0);
         Price price = priceService.getApplicablePrice(applicationDate, 35455, 1);
 
-        assertTrue(price != null);
+        assertNotNull(price);
         assertEquals(35.5, price.getPrice());
     }
 
@@ -57,7 +56,7 @@ public class PriceControllerTest {
         LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 15, 10, 0, 0);
         Price price = priceService.getApplicablePrice(applicationDate, 35455, 1);
 
-        assertTrue(price != null);
+        assertNotNull(price);
         assertEquals(30.5, price.getPrice());
     }
 
@@ -66,7 +65,7 @@ public class PriceControllerTest {
         LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 16, 21, 0, 0);
         Price price = priceService.getApplicablePrice(applicationDate, 35455, 1);
 
-        assertTrue(price != null);
+        assertNotNull(price);
         assertEquals(38.95, price.getPrice());
     }
 }

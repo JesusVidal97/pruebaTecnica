@@ -1,4 +1,4 @@
-package com.jesus.prueba_tecnica.infrastructure.repository.dao;
+package com.jesus.prueba_tecnica.infrastructure.repository;
 
 import com.jesus.prueba_tecnica.domain.Price;
 import java.time.LocalDateTime;

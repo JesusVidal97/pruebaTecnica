@@ -1,16 +1,13 @@
 package com.jesus.prueba_tecnica.application.services;
 
 import com.jesus.prueba_tecnica.application.exceptions.PriceNotFoundException;
-import com.jesus.prueba_tecnica.infrastructure.exceptions.RequestParamNoValidException;
-import com.jesus.prueba_tecnica.infrastructure.repository.dao.PriceRepository;
+import com.jesus.prueba_tecnica.infrastructure.repository.PriceRepository;
 import com.jesus.prueba_tecnica.domain.Price;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * Clase de servicio encargada de la logica de las operaciones
@@ -31,7 +28,7 @@ public class PriceServiceImpl implements PriceService {
      * @param applicationDate La fecha en la que se va a filtrar
      * @param productId       El id del producto por el que se va a filtrar
      * @param brandId         El brandId por el que se va a filtrar
-     * @return {@link Optional} que contiene el {@link Price} si se encuentra, o un Optional vacío si no hay precio aplicable.
+     * @return {@link Price}  Devuelve el precio encontrado.
      */
     public Price getApplicablePrice(LocalDateTime applicationDate, int productId, int brandId) {
 

@@ -1,4 +1,4 @@
-package com.jesus.prueba_tecnica.infrastructure.repository.dao;
+package com.jesus.prueba_tecnica.infrastructure.repository;
 
 import com.jesus.prueba_tecnica.domain.Price;
 import org.springframework.stereotype.Repository;
@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Clase que implementa los metodos CRUD de la BBDD H2
@@ -26,7 +25,7 @@ public class PriceRepositoryH2Impl implements PriceRepository {
      * @param applicationDate La fecha en la que se va a filtrar
      * @param productId       El id del producto por el que se va a filtrar
      * @param brandId         El brandId por el que se va a filtrar
-     * @return {@link Optional} que contiene el {@link Price} si se encuentra, o un Optional vacío si no hay precio aplicable.
+     * @return {@link List<Price>} Lista con todos los precios encontrados
      */
     @Override
     public List<Price> findApplicablePrice(LocalDateTime applicationDate, int productId, int brandId) {
