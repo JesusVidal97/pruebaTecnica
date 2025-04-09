@@ -38,7 +38,7 @@ public class PriceServiceImpl implements PriceService {
             throw new PriceNotFoundException("No price found for product " + productId + " and brand " + brandId);
         }
 
-        // Aseguramos que el resultado esté ordenado antes de obtener el primero
+        // Ordenamos la lista de precios obtenida por prioridad descendente
         priceList.sort(Comparator.comparingInt(Price::getPriority).reversed());
 
         return priceList.get(0);

@@ -1,5 +1,6 @@
 package com.jesus.prueba_tecnica.utils;
 
+import com.jesus.prueba_tecnica.utils.exceptions.DDBBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,6 +66,7 @@ public class BBDDUtils {
 
         } catch (Exception e) {
             logger.error(e.getMessage());
+            throw new DDBBException("Error in the initialization of the database");
         }
     }
 }

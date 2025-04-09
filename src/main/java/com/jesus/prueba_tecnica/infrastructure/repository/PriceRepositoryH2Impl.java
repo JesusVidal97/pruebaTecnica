@@ -20,7 +20,7 @@ public class PriceRepositoryH2Impl implements PriceRepository {
     }
 
     /**
-     * Metodo que lanza la query para obtener el precio del producto con los datos filtrados
+     * Metodo que lanza la query para obtener los precios del producto con los datos filtrados
      *
      * @param applicationDate La fecha en la que se va a filtrar
      * @param productId       El id del producto por el que se va a filtrar

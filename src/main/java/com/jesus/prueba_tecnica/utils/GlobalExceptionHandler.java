@@ -3,6 +3,7 @@ package com.jesus.prueba_tecnica.utils;
 import com.jesus.prueba_tecnica.application.exceptions.PriceNotFoundException;
 import com.jesus.prueba_tecnica.infrastructure.exceptions.InvalidDateFormatException;
 import com.jesus.prueba_tecnica.infrastructure.exceptions.RequestParamNoValidException;
+import com.jesus.prueba_tecnica.utils.exceptions.DDBBException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,19 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, "Date format invalid", e.getMessage(), "DATE_FORMAT_ERROR");
     }
 
+    @ExceptionHandler(InvalidDateFormatException.class)
+    public ResponseEntity<Map<String, Object>> handleDDBBException(DDBBException e) {
+        return buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, "DataBase error", e.getMessage(), "DATA_BASE_ERROR");
+    }
+
+    /**
+     * Metodo encargado de mapear las excepciones
+     * @param status
+     * @param detail
+     * @param message
+     * @param title
+     * @return
+     */
     private ResponseEntity<Map<String, Object>> buildErrorResponse(HttpStatus status, String detail, String message, String title) {
         Map<String, Object> errorResponse = new HashMap<>();
         Map<String, Object> errorDetails = new HashMap<>();

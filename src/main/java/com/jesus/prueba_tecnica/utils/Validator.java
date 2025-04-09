@@ -34,6 +34,11 @@ public class Validator {
         }
     }
 
+    /**
+     * Metodo que valida el formato de la fecha informada como String y devolverla en formato LocalDateTime o lanzar excepcion
+     * @param applicationDate La fecha informada en la peticion
+     * @return {@link LocalDateTime}
+     */
     public static LocalDateTime validateDateFormat(String applicationDate) {
         LocalDateTime parsedDate;
 
@@ -42,7 +47,7 @@ public class Validator {
             parsedDate = LocalDateTime.parse(applicationDate, formatter);
             return parsedDate;
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException("El formato de fecha debe ser 'yyyy-MM-dd HH:mm:ss'.");
+            throw new InvalidDateFormatException("The date format must be 'yyyy-MM-dd HH:mm:ss'.");
         }
     }
 }

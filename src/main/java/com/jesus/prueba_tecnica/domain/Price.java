@@ -24,6 +24,7 @@ public class Price {
      * @param priceList
      * @param startDate
      * @param endDate
+     * @param priority
      * @param price
      * @param currency
      */
@@ -41,7 +42,7 @@ public class Price {
     /**
      * Constructor vacio del objeto
      */
-    public Price(int priority) {
+    public Price() {
     }
 
     public int getBrandId() {
